@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beleza Sublime | Salão de Beleza e Estética</title>
+    <meta name="description" content="Salão de beleza especializado em transformações capilares, tratamentos estéticos e serviços de manicure e pedicure. Agende seu horário!">
+    <!-- Open Graph / Facebook / WhatsApp / Instagram -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Beleza Sublime | Salão de Beleza e Estética">
+<meta property="og:description" content="Transforme sua beleza com nossos serviços de cabelo, estética e unhas. Atendimento personalizado e resultados incríveis!">
+<meta property="og:url" content="https://belezasublime.netlify.app"> <!-- Troque para a URL real do seu site -->
+<meta property="og:image" content="https://belezasublime.netlify.app/images/logo.jpg"> <!-- Troque para a imagem real -->
+<meta property="og:site_name" content="Beleza Sublime">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beleza Sublime | Salão de Beleza e Estética">
+<meta name="twitter:description" content="Transforme sua beleza com nossos serviços de cabelo, estética e unhas. Atendimento personalizado e resultados incríveis!">
+<meta name="twitter:image" content="https://belezasublime.netlify.app/images/logo.jpg"> <!-- Mesmo da Open Graph -->
+
+<!-- Author -->
+<meta name="author" content="Beleza Sublime">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e83e8c', // Rosa
+                        'primary-dark': '#d30e78',
+                        accent: '#d4af37', // Dourado
+                        'accent-light': '#f9f4e3',
+                        light: '#ffcee6', // Fundo rosa claro
+                        dark: '#333333',
+                        gray: '#ffe6f2', // Cinza rosado
+                        text: '#555555'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                        'serif': ['Lora', 'serif'],
+                        'display': ['Dancing Script', 'cursive']
+                    },
+                    boxShadow: {
+                        'sm': '0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'md': '0 10px 25px rgba(0, 0, 0, 0.1)',
+                        'lg': '0 15px 35px rgba(0, 0, 0, 0.15)'
+                    },
+                    transitionTimingFunction: {
+                        'bounce': 'cubic-bezier(0.25, 0.8, 0.25, 1)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .dark {
+                --tw-text-opacity: 1;
+                color: rgba(224, 224, 224, var(--tw-text-opacity));
+            }
+            .dark .dark\:bg-dark {
+                --tw-bg-opacity: 1;
+                background-color: rgba(30, 30, 30, var(--tw-bg-opacity));
+            }
+            .dark .dark\:text-white {
+                --tw-text-opacity: 1;
+                color: rgba(245, 245, 245, var(--tw-text-opacity));
+            }
+        }
+        
+        body {
+            background-color: #ffcee6; /* Rosa claro para todo o site */
+        }
+        
+        .slide {
+            transform: translateX(0);
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        /* Blog article modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.75);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            transform: translateY(50px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        /* Carousel effects */
+        /* Movimento infinito da imagem */
+.moving-background {
+    animation: moveBackground 60s linear infinite;
+  }
+  
+  @keyframes moveBackground {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 300%;
+        }
+        
+        .carousel-item {
+            flex: 1;
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .carousel-img {
+            width: 100%;
+            height: 50vh; /* Reduzido de 70vh para 50vh */
+            object-fit: cover;
+        }
+        
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .carousel-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: white;
+            transform: scale(1.3);
+        }
+        
+        /* Logo placeholder */
+        .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e83e8c, #d4af37);
+            border-radius: 50%;
+            color: white;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+        }
+
+        /* Lazy loading para imagens */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+        .footer-bottom {
+            background-color: #f8f8f800; /* ou a cor do seu rodapé */
+            padding: 20px 0;
+          }
+          
+          .footer-bottom-content {
+            text-align: center;
+            color: #555; /* cor do texto */
+            font-size: 14px;
+          }
+          
+          .footer-bottom-content p {
+            margin: 5px 0;
+          }
+          
+          .developer-credit i {
+            margin: 0 5px;
+            color: #888;
+          }
+          
+          .developer-link {
+            color: #d4af37;
+            text-decoration: none;
+          }
+          
+          .developer-link:hover {
+            text-decoration: underline;
+          }
+    </style>
+</head>
+<body class="font-sans text-text bg-light dark:bg-dark dark:text-white">
+    <!-- Loading Screen - Tempo reduzido -->
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-light dark:bg-dark transition-opacity duration-300">
+        <div class="relative w-20 h-20">
+            <div class="w-full h-full rounded-full border-4 border-transparent border-t-primary border-r-accent animate-spin"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 bg-light dark:bg-dark rounded-full">
+                <div class="font-display font-bold text-lg">
+                    <span class="text-primary">B</span><span class="text-accent">S</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header" class="fixed w-full z-40 transition-all duration-300 py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3">
+                    <div class="logo-placeholder">BS</div>
+                    <div class="font-display text-3xl font-bold">
+                        <span class="text-primary">Beleza</span>
+                        <span class="text-accent italic">Sublime</span>
+                    </div>
+                </a>
+                
+                <!-- Mobile Menu Toggle -->
+                <div id="mobile-toggle" class="lg:hidden text-white cursor-pointer">
+                    <div class="w-7 h-5 relative">
+                        <span class="absolute w-full h-0.5 bg-current transform transition-all duration-300"></span>
+                        <span class="absolute w-full h-0.5 bg-current top-2 transform transition-all duration-300"></span>
+                        <span class="absolute w-full h-0.5 bg-current top-4 transform transition-all duration-300"></span>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <nav id="nav" class="fixed top-0 right-0 w-64 max-w-full h-screen bg-light dark:bg-dark shadow-lg transform translate-x-full lg:translate-x-0 transition-transform duration-300 lg:static lg:h-auto lg:w-auto lg:shadow-none lg:bg-transparent z-50 overflow-y-auto lg:overflow-visible">
+                    <div class="p-6 flex justify-between items-center lg:hidden">
+                        <div class="font-display text-xl font-bold">
+                            <span class="text-primary">Beleza</span>
+                            <span class="text-accent italic">Sublime</span>
+                        </div>
+                        <button id="close-nav" class="text-dark dark:text-white">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <ul class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8 p-6 lg:p-0">
+                        <li><a href="#home" class="nav-link active text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Home</a></li>
+                        <li><a href="#about" class="nav-link text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Sobre</a></li>
+                        <li><a href="#services" class="nav-link text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Serviços</a></li>
+                        <li><a href="#gallery" class="nav-link text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Galeria</a></li>
+                        <li><a href="#team" class="nav-link text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Equipe</a></li>
+                        <li><a href="#blog" class="nav-link text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Blog</a></li>
+                        <li><a href="#contact" class="nav-link text-dark dark:text-white lg:text-white lg:dark:text-white hover:text-primary dark:hover:text-primary text-sm uppercase font-medium tracking-wider">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+   <!-- Hero Section with Moving Background and Text Carousel -->
+<section id="home" class="relative h-[350px] lg:h-[450px] overflow-hidden">
+    <div class="relative w-full h-full">
+      <!-- Moving Background Image -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="moving-background w-[200%] h-full">
+          <img src="images/slide2.jpg" alt="Salão de Beleza" class="w-full h-full object-cover">
+        </div>
+      </div>
+  
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+        <!-- Carousel Content -->
+        <div id="text-carousel" class="text-center text-white max-w-2xl mx-auto transition-all duration-700">
+          <h1 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 leading-tight">Beleza que Inspira, Estilo que Transforma</h1>
+          <p class="text-base mb-6">Descubra a experiência definitiva em cuidados de beleza em um ambiente exclusivo, com profissionais altamente qualificados e produtos premium.</p>
+          <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20Beleza%20Sublime." 
+            class="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-full transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+            Agendar Agora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-light dark:bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">Nossos Serviços Exclusivos</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-text dark:text-gray-300">Oferecemos uma variedade de serviços de beleza e estética premium para realçar sua beleza natural e proporcionar uma experiência relaxante e transformadora.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/serv1.jpg" alt="Corte & Styling" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                        <div class="absolute top-4 right-0 bg-accent text-white py-1 px-6 transform rotate-45 translate-x-5 font-medium text-xs uppercase tracking-wider shadow-md">Mais Popular</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-primary mr-3">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-medium text-dark dark:text-white">Corte & Styling</h3>
+                        </div>
+                        <p class="mb-4 text-gray-600 dark:text-gray-300">Cortes personalizados que valorizam seu tipo de rosto e estilo pessoal, finalizados com as melhores técnicas de styling.</p>
+                        <div class="text-accent font-semibold text-lg mb-4">A partir de R$ 90,00</div>
+                        <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20um%20Corte%20e%20Styling%20no%20Beleza%20Sublime." class="inline-block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300">Agendar</a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/servi2.jpg" alt="Coloração" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-primary mr-3">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-medium text-dark dark:text-white">Coloração</h3>
+                        </div>
+                        <p class="mb-4 text-gray-600 dark:text-gray-300">Transforme seu visual com nossas técnicas de coloração, desde as mais naturais até as mais ousadas e criativas.</p>
+                        <div class="text-accent font-semibold text-lg mb-4">A partir de R$ 150,00</div>
+                        <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20um%20serviço%20de%20Coloração%20no%20Beleza%20Sublime." class="inline-block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300">Agendar</a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/servi3.jpg" alt="Tratamentos Faciais" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-primary mr-3">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-medium text-dark dark:text-white">Tratamentos Faciais</h3>
+                        </div>
+                        <p class="mb-4 text-gray-600 dark:text-gray-300">Cuide da sua pele com nossos tratamentos faciais personalizados, que combatem imperfeições e devolvem o brilho natural.</p>
+                        <div class="text-accent font-semibold text-lg mb-4">A partir de R$ 120,00</div>
+                        <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20um%20Tratamento%20Facial%20no%20Beleza%20Sublime." class="inline-block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300">Agendar</a>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/serv3.jpg" alt="Manicure e Pedicure" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-primary mr-3">
+                                <i class="fas fa-hand-sparkles"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-medium text-dark dark:text-white">Manicure & Pedicure</h3>
+                        </div>
+                        <p class="mb-4 text-gray-600 dark:text-gray-300">Unhas impecáveis com as últimas tendências em esmaltes e designs, inclusive nail art e alongamentos.</p>
+                        <div class="text-accent font-semibold text-lg mb-4">A partir de R$ 70,00</div>
+                        <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20um%20serviço%20de%20Manicure%20e%20Pedicure%20no%20Beleza%20Sublime." class="inline-block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300">Agendar</a>
+                    </div>
+                </div>
+                
+                <!-- Service 5 (Added) -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/serv5.jpg" alt="Extensão de Cílios" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-primary mr-3">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-medium text-dark dark:text-white">Extensão de Cílios</h3>
+                        </div>
+                        <p class="mb-4 text-gray-600 dark:text-gray-300">Realce o olhar com nossas extensões de cílios, disponíveis em diferentes estilos, comprimentos e curvaturas.</p>
+                        <div class="text-accent font-semibold text-lg mb-4">A partir de R$ 180,00</div>
+                        <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20uma%20Extensão%20de%20Cílios%20no%20Beleza%20Sublime." class="inline-block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300">Agendar</a>
+                    </div>
+                </div>
+                
+                <!-- Service 6 (Added) -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/servi5.jpg" alt="Massagem Relaxante" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-primary mr-3">
+                                <i class="fas fa-hands"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-medium text-dark dark:text-white">Massagem Relaxante</h3>
+                        </div>
+                        <p class="mb-4 text-gray-600 dark:text-gray-300">Alivie o estresse e tensão muscular com nossas massagens relaxantes, realizadas com óleos essenciais aromáticos.</p>
+                        <div class="text-accent font-semibold text-lg mb-4">A partir de R$ 150,00</div>
+                        <a href="https://wa.me/5575991342279?text=Olá!%20Gostaria%20de%20agendar%20uma%20Massagem%20Relaxante%20no%20Beleza%20Sublime." class="inline-block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300">Agendar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-light dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-[1.02] transition duration-500">
+                        <img src="images/sobre.jpg" alt="Sobre o Salão Beleza Sublime" class="w-full h-full object-cover lazy-load">
+                    </div>
+                    <div class="absolute -bottom-5 -right-5 w-24 h-24 bg-primary rounded-full flex items-center justify-center text-white font-serif font-bold text-xl transform rotate-12 shadow-lg">
+                        <span>10 Anos</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">Nossa História</h2>
+                    <div class="w-20 h-1 bg-accent mb-8"></div>
+                    <p class="mb-6 text-text dark:text-gray-300">Fundado em 2010, o Beleza Sublime nasceu da paixão por transformar pessoas e elevar sua autoestima através da beleza. Nosso salão combina um ambiente acolhedor com profissionais altamente qualificados e produtos de primeira linha.</p>
+                    <p class="mb-6 text-text dark:text-gray-300">Acreditamos que cada cliente é único, por isso oferecemos atendimento personalizado, entendendo as necessidades individuais e criando experiências memoráveis a cada visita.</p>
+                    <p class="mb-8 text-text dark:text-gray-300">Nossa missão é fazer você se sentir mais confiante e radiante. Nossos valores incluem excelência, ética profissional, atualização constante e compromisso com a satisfação dos clientes.</p>
+                    <a href="#team" class="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-full transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Conheça Nossa Equipe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-light dark:bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">Especialistas em Beleza</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-text dark:text-gray-300">Conheça os profissionais talentosos que farão sua experiência no Beleza Sublime ser excepcional.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 text-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-md mx-auto mb-6 transition-transform duration-500 hover:scale-105">
+                        <img src="images/dep1.jpg" alt="Cabeleireira e Proprietária" class="w-full h-full object-cover lazy-load">
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-1">Juliana Flores</h3>
+                    <div class="text-accent text-sm font-medium mb-4">Cabeleireira e Proprietária</div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Especialista em coloração e transformações, com 15 anos de experiência e formação internacional.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 text-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-md mx-auto mb-6 transition-transform duration-500 hover:scale-105">
+                        <img src="images/dep2.jpg" alt="Especialista em Coloração" class="w-full h-full object-cover lazy-load">
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-1">Clarice Eduarda</h3>
+                    <div class="text-accent text-sm font-medium mb-4">Especialista em Coloração</div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Mestre em técnicas de balayage e mechas, premiado em concursos nacionais de coloração.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 text-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-md mx-auto mb-6 transition-transform duration-500 hover:scale-105">
+                        <img src="images/dep3.jpg" alt="Esteticista Facial" class="w-full h-full object-cover lazy-load">
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-1">Patrícia Mendes</h3>
+                    <div class="text-accent text-sm font-medium mb-4">Esteticista Facial</div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Especialista em tratamentos faciais avançados, com certificação em técnicas europeias.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 text-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-md mx-auto mb-6 transition-transform duration-500 hover:scale-105">
+                        <img src="images/dep4.jpg" alt="Manicure e Nail Designer" class="w-full h-full object-cover lazy-load">
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-1">Fernanda Lima</h3>
+                    <div class="text-accent text-sm font-medium mb-4">Manicure e Nail Designer</div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Criadora de nail arts exclusivas, com formação em técnicas japonesas de alongamento.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300 shadow-sm hover:shadow">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-light dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">Galeria de Transformações</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-text dark:text-gray-300">Confira alguns dos nossos trabalhos realizados e deixe-se inspirar para sua próxima transformação.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <button class="filter-btn active bg-white dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 px-6 py-2 rounded-full text-sm font-medium transition duration-300 shadow-sm" data-filter="all">Todos</button>
+                <button class="filter-btn bg-white dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 px-6 py-2 rounded-full text-sm font-medium transition duration-300 shadow-sm" data-filter="cabelo">Cabelo</button>
+                <button class="filter-btn bg-white dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 px-6 py-2 rounded-full text-sm font-medium transition duration-300 shadow-sm" data-filter="maquiagem">Maquiagem</button>
+                <button class="filter-btn bg-white dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 px-6 py-2 rounded-full text-sm font-medium transition duration-300 shadow-sm" data-filter="unhas">Unhas</button>
+                <button class="filter-btn bg-white dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 px-6 py-2 rounded-full text-sm font-medium transition duration-300 shadow-sm" data-filter="tratamentos">Tratamentos</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item" data-category="cabelo">
+                    <div class="relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
+                        <img src="images/trat1.jpg" alt="Transformação de Cabelo" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110 lazy-load">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 text-center">
+                            <div class="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                                <h3 class="font-serif text-xl font-medium text-white mb-1">Transformação Completa</h3>
+                                <p class="text-gray-300 text-sm">Corte moderno e coloração personalizada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item" data-category="maquiagem">
+                    <div class="relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
+                        <img src="images/maq1.jpg" alt="Maquiagem para Evento" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110 lazy-load">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 text-center">
+                            <div class="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                                <h3 class="font-serif text-xl font-medium text-white mb-1">Maquiagem para Evento</h3>
+                                <p class="text-gray-300 text-sm">Produção completa para casamento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item" data-category="unhas">
+                    <div class="relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
+                        <img src="images/unha2.jpg" alt="Nail Art Exclusiva" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110 lazy-load">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 text-center">
+                            <div class="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                                <h3 class="font-serif text-xl font-medium text-white mb-1">Nail Art Exclusiva</h3>
+                                <p class="text-gray-300 text-sm">Design personalizado com aplicações</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item" data-category="tratamentos">
+                    <div class="relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
+                        <img src="images/tratp2.jpg" alt="Tratamento Facial" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110 lazy-load">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 text-center">
+                            <div class="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                                <h3 class="font-serif text-xl font-medium text-white mb-1">Limpeza de Pele Profunda</h3>
+                                <p class="text-gray-300 text-sm">Renovação celular e hidratação intensiva</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item" data-category="cabelo">
+                    <div class="relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
+                        <img src="images/bala.jpg" alt="Balayage" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110 lazy-load">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 text-center">
+                            <div class="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                                <h3 class="font-serif text-xl font-medium text-white mb-1">Balayage Natural</h3>
+                                <p class="text-gray-300 text-sm">Técnica de iluminação para cabelos escuros</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item" data-category="maquiagem">
+                    <div class="relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
+                        <img src="images/maq2.jpg" alt="Maquiagem Natural" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110 lazy-load">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 text-center">
+                            <div class="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                                <h3 class="font-serif text-xl font-medium text-white mb-1">Maquiagem Natural</h3>
+                                <p class="text-gray-300 text-sm">Look para o dia a dia que realça a beleza natural</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gallery Lightbox -->
+        <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center">
+            <div class="max-w-4xl max-h-[80vh] p-4">
+                <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[80vh] object-contain">
+            </div>
+            <button id="lightbox-close" class="absolute top-6 right-6 text-white text-3xl hover:text-primary transition duration-300 hover:rotate-90">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-light dark:bg-dark relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-64 h-64 rounded-full bg-primary/5 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-accent/5 translate-x-1/2 translate-y-1/2"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">O Que Nossos Clientes Dizem</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-text dark:text-gray-300">Veja o que nossos clientes têm a dizer sobre suas experiências no Beleza Sublime.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 overflow-hidden">
+                <div class="testimonials-slider relative">
+                    <div class="testimonials-track flex transition-transform duration-500">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide min-w-full px-4 text-center">
+                            <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-accent/20 shadow-md mx-auto mb-6">
+                                <img src="images/dep1.jpg" alt="Cliente Depoimento" class="w-full h-full object-cover lazy-load">
+                            </div>
+                            <div class="relative">
+                                <p class="italic text-gray-600 dark:text-gray-300 mb-6 font-display text-lg px-10">Frequento o Beleza Sublime há mais de 2 anos e nunca me decepcionei. A equipe é extremamente profissional e atenciosa. Meus cabelos nunca estiveram tão saudáveis e lindos! Recomendo de olhos fechados.</p>
+                                <div class="font-medium text-lg text-dark dark:text-white">Mariana Santos</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide min-w-full px-4 text-center">
+                            <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-accent/20 shadow-md mx-auto mb-6">
+                                <img src="images/dep2.jpg" alt="Cliente Depoimento" class="w-full h-full object-cover lazy-load">
+                            </div>
+                            <div class="relative">
+                                <p class="italic text-gray-600 dark:text-gray-300 mb-6 font-display text-lg px-10">Fiz meu primeiro procedimento facial no Beleza Sublime e fiquei impressionada com os resultados. A Patrícia é uma esteticista incrível, super cuidadosa e competente. Minha pele está radiante e já agendei meu retorno!</p>
+                                <div class="font-medium text-lg text-dark dark:text-white">Camila Oliveira</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide min-w-full px-4 text-center">
+                            <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-accent/20 shadow-md mx-auto mb-6">
+                                <img src="images/dep3.jpg" alt="Cliente Depoimento" class="w-full h-full object-cover lazy-load">
+                            </div>
+                            <div class="relative">
+                                <p class="italic text-gray-600 dark:text-gray-300 mb-6 font-display text-lg px-10">O Carlos transformou meu cabelo com a técnica de balayage e estou completamente apaixonada! Além do resultado incrível, o ambiente do salão é super aconchegante e a equipe faz você se sentir especial.</p>
+                                <div class="font-medium text-lg text-dark dark:text-white">Fernanda Mendonça</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center gap-3 mt-8">
+                    <button class="slider-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 opacity-30 transition duration-300 hover:opacity-100 active" data-slide="0"></button>
+                    <button class="slider-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 opacity-30 transition duration-300 hover:opacity-100" data-slide="1"></button>
+                    <button class="slider-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 opacity-30 transition duration-300 hover:opacity-100" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-light dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">Blog de Beleza</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-text dark:text-gray-300">Dicas, tendências e novidades do mundo da beleza para te manter sempre atualizada.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/blog1.jpg" alt="Tendências de Cabelo 2025" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="bg-pink-50 dark:bg-pink-900/30 text-primary text-xs font-medium py-1 px-3 rounded-full inline-block mb-4">25 de Março, 2025</div>
+                        <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-4 line-clamp-2">Tendências de Cabelo para 2025</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3">Descubra as principais tendências de cortes, cores e estilos que estão dominando os salões este ano. Dos cortes precision bob aos multitom.</p>
+                        <button class="read-blog-btn inline-block border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300" data-id="1">Ler Mais</button>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/blog2.jpg" alt="Cuidados com a Pele no Outono" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="bg-pink-50 dark:bg-pink-900/30 text-primary text-xs font-medium py-1 px-3 rounded-full inline-block mb-4">18 de Março, 2025</div>
+                        <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-4 line-clamp-2">Cuidados com a Pele no Outono</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3">Saiba como adaptar sua rotina skincare para a nova estação e manter sua pele saudável e radiante. Uma pele bonita requer cuidados específicos.</p>
+                        <button class="read-blog-btn inline-block border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300" data-id="2">Ler Mais</button>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="images/blog3.jpg" alt="Maquiagem para Pele Madura" class="w-full h-full object-cover transition duration-500 hover:scale-110 lazy-load">
+                    </div>
+                    <div class="p-6">
+                        <div class="bg-pink-50 dark:bg-pink-900/30 text-primary text-xs font-medium py-1 px-3 rounded-full inline-block mb-4">10 de Março, 2025</div>
+                        <h3 class="font-serif text-xl font-medium text-dark dark:text-white mb-4 line-clamp-2">Maquiagem para Pele Madura</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3">Técnicas e produtos recomendados para valorizar a beleza da pele madura com elegância e naturalidade. Aprendas as técnicas para acentuar a beleza natural.</p>
+                        <button class="read-blog-btn inline-block border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-2 rounded-full transition duration-300" data-id="3">Ler Mais</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-full transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Ver Todos os Posts</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-light dark:bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-serif font-semibold mb-4 text-dark dark:text-white">Entre em Contato</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-text dark:text-gray-300">Estamos prontos para atender você e responder todas as suas dúvidas.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-2xl font-serif font-medium text-dark dark:text-white mb-6">Informações de Contato</h3>
+                    
+                    <div class="flex items-start mb-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-primary mr-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-lg font-medium text-dark dark:text-white mb-2">Localização</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Avenida das Flores, 123 - Centro<br>Santana do Ipanema, AL - 57500-000</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-primary mr-4">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-lg font-medium text-dark dark:text-white mb-2">Telefone</h4>
+                            <p class="text-gray-600 dark:text-gray-300">(75) 99134-2279<br>(82) 99609-2684</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-primary mr-4">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-lg font-medium text-dark dark:text-white mb-2">Email</h4>
+                            <p class="text-gray-600 dark:text-gray-300">contato@belezasublime.com.br<br></p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-primary mr-4">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-lg font-medium text-dark dark:text-white mb-2">Horário de Funcionamento</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Segunda à Sexta: 09h às 20h<br>Sábado: 09h às 18h<br>Domingo: Fechado</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+                    <h3 class="text-2xl font-serif font-medium text-dark dark:text-white mb-6">Envie uma Mensagem</h3>
+                    
+                    <form id="contact-form">
+                        <div class="mb-6">
+                            <label for="name" class="block text-dark dark:text-white font-medium mb-2">Nome Completo</label>
+                            <input type="text" id="name" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary text-dark dark:text-white" placeholder="Seu nome completo">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-dark dark:text-white font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary text-dark dark:text-white" placeholder="Seu email">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="phone" class="block text-dark dark:text-white font-medium mb-2">Telefone</label>
+                            <input type="tel" id="phone" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary text-dark dark:text-white" placeholder="Seu telefone">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-dark dark:text-white font-medium mb-2">Mensagem</label>
+                            <textarea id="message" rows="4" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary text-dark dark:text-white" placeholder="Sua mensagem"></textarea>
+                        </div>
+                        
+                        <a href="https://wa.me/5575991342279" id="send-message" class="w-full block bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-lg transition duration-300 text-center">Enviar Mensagem</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 pt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="logo-placeholder">BS</div>
+                        <div class="font-display text-2xl font-bold">
+                            <span class="text-primary">Beleza</span>
+                            <span class="text-accent italic">Sublime</span>
+                        </div>
+                    </div>
+                    <p class="mb-6 text-gray-400">O Beleza Sublime é um salão premium dedicado a transformar e realçar a beleza natural de cada cliente, oferecendo serviços de alta qualidade em um ambiente acolhedor e sofisticado.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-primary flex items-center justify-center text-white transition duration-300 transform hover:-translate-y-1 hover:shadow">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-primary flex items-center justify-center text-white transition duration-300 transform hover:-translate-y-1 hover:shadow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-primary flex items-center justify-center text-white transition duration-300 transform hover:-translate-y-1 hover:shadow">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-primary flex items-center justify-center text-white transition duration-300 transform hover:-translate-y-1 hover:shadow">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-serif font-medium text-white mb-6 relative pb-4 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-accent">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#home" class="text-gray-400 hover:text-primary transition duration-300">Home</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#about" class="text-gray-400 hover:text-primary transition duration-300">Sobre Nós</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#services" class="text-gray-400 hover:text-primary transition duration-300">Serviços</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#gallery" class="text-gray-400 hover:text-primary transition duration-300">Galeria</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#team" class="text-gray-400 hover:text-primary transition duration-300">Equipe</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#blog" class="text-gray-400 hover:text-primary transition duration-300">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-serif font-medium text-white mb-6 relative pb-4 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-accent">Serviços</h3>
+                    <ul class="space-y-3">
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Corte & Styling</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Coloração</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Tratamentos Capilares</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Tratamentos Faciais</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Manicure & Pedicure</a>
+                        </li>
+                        <li class="pl-5 relative before:absolute before:left-0 before:top-1.5 before:text-primary before:content-['\203A'] before:text-lg hover:pl-7 transition-all duration-300">
+                            <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Extensão de Cílios</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-serif font-medium text-white mb-6 relative pb-4 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-accent">Contato</h3>
+                    
+                    <div class="flex mb-4">
+                        <i class="fas fa-map-marker-alt text-accent mt-1 mr-3"></i>
+                        <p>Avenida das Flores, 123 - Centro<br>Santana do Ipanema, AL - 57500-000</p>
+                    </div>
+                    
+                    <div class="flex mb-4">
+                        <i class="fas fa-phone-alt text-accent mt-1 mr-3"></i>
+                        <p>(75) 99134-2279</p>
+                    </div>
+                    
+                    <div class="flex mb-4">
+                        <i class="fas fa-envelope text-accent mt-1 mr-3"></i>
+                        <p>contato@belezasublime.com.br</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quality Seals -->
+            <div class="flex flex-wrap justify-center gap-10 py-10 border-t border-gray-800">
+                <div class="w-20 h-20 bg-gray-800 rounded-full flex flex-col items-center justify-center p-4 text-center transition duration-300 hover:scale-110 hover:bg-gray-700">
+                    <i class="fas fa-award text-2xl text-accent mb-1"></i>
+                    <span class="text-xs leading-tight font-medium">Melhor Salão 2025</span>
+                </div>
+                <div class="w-20 h-20 bg-gray-800 rounded-full flex flex-col items-center justify-center p-4 text-center transition duration-300 hover:scale-110 hover:bg-gray-700">
+                    <i class="fas fa-certificate text-2xl text-accent mb-1"></i>
+                    <span class="text-xs leading-tight font-medium">Certificado de Excelência</span>
+                </div>
+                <div class="w-20 h-20 bg-gray-800 rounded-full flex flex-col items-center justify-center p-4 text-center transition duration-300 hover:scale-110 hover:bg-gray-700">
+                    <i class="fas fa-leaf text-2xl text-accent mb-1"></i>
+                    <span class="text-xs leading-tight font-medium">Produtos Sustentáveis</span>
+                </div>
+                <div class="w-20 h-20 bg-gray-800 rounded-full flex flex-col items-center justify-center p-4 text-center transition duration-300 hover:scale-110 hover:bg-gray-700">
+                    <i class="fas fa-thumbs-up text-2xl text-accent mb-1"></i>
+                    <span class="text-xs leading-tight font-medium">Cliente Satisfeito</span>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Beleza Sublime. Todos os direitos reservados.</p>
+                    <p class="developer-credit">
+                        <i class="fas fa-code"></i> Desenvolvido por 
+                        <a href="https://wa.me/5575991342279" target="_blank" class="developer-link">
+                            PeagahTech
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/5575991342279" class="fixed bottom-8 right-8 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center text-2xl shadow-lg transition duration-300 hover:scale-110 z-50">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scroll Top Button -->
+    <button id="scroll-top" class="fixed bottom-8 left-8 w-12 h-12 bg-primary hover:bg-primary-dark text-white rounded-full flex items-center justify-center text-lg shadow-lg transition duration-300 hover:scale-110 opacity-0 invisible z-50">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Blog Article Modal -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content max-w-4xl w-full mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="text-2xl lg:text-3xl font-serif font-semibold text-dark dark:text-white"></h2>
+                <button id="close-modal" class="text-gray-400 hover:text-primary text-2xl transition duration-300">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mb-4">
+                <span id="modal-date" class="bg-pink-50 dark:bg-pink-900/30 text-primary text-xs font-medium py-1 px-3 rounded-full"></span>
+            </div>
+            <div id="modal-image" class="rounded-lg overflow-hidden mb-6 h-80">
+                <img src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div id="modal-content" class="prose prose-pink max-w-none dark:prose-invert prose-headings:font-serif prose-p:text-gray-600 dark:prose-p:text-gray-300"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Dark mode support
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+        
+        // Loading Screen - Reduzido para carregamento mais rápido
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('opacity-0');
+                setTimeout(() => {
+                    document.getElementById('loader').classList.add('hidden');
+                }, 300); // Reduzido de 500ms para 300ms
+            }, 500); // Reduzido de 1000ms para 500ms
+        });
+        
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('nav');
+        const closeNav = document.getElementById('close-nav');
+        
+        mobileToggle.addEventListener('click', () => {
+            nav.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        });
+        
+        closeNav.addEventListener('click', () => {
+            nav.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                nav.classList.add('translate-x-full');
+                document.body.classList.remove('overflow-hidden');
+                
+                // Scroll to section
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar Active Link & Header Background
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const header = document.getElementById('header');
+        
+        function updateNavigation() {
+            let current = '';
+            const scrollY = window.pageYOffset;
+            
+            // Header background on scroll
+            if (scrollY > 50) {
+                header.classList.add('bg-white/90', 'dark:bg-dark/90', 'backdrop-blur-sm', 'py-2', 'shadow-sm');
+                header.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('lg:text-white');
+                    link.classList.add('lg:text-dark', 'lg:dark:text-white');
+                });
+            } else {
+                header.classList.remove('bg-white/90', 'dark:bg-dark/90', 'backdrop-blur-sm', 'py-2', 'shadow-sm');
+                header.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.add('lg:text-white');
+                    link.classList.remove('lg:text-dark', 'lg:dark:text-white');
+                });
+            }
+            
+            // Active nav links
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = sectionId;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-primary');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active', 'text-primary');
+                }
+            });
+            
+            // Scroll to top button visibility
+            const scrollTopBtn = document.getElementById('scroll-top');
+            if (scrollY > 600) {
+                scrollTopBtn.classList.remove('opacity-0', 'invisible');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'invisible');
+            }
+        }
+        
+        window.addEventListener('scroll', updateNavigation);
+        window.addEventListener('load', updateNavigation);
+        
+        // Scroll to top button
+        document.getElementById('scroll-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Testimonials Slider
+        const track = document.querySelector('.testimonials-track');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        let slideInterval;
+        
+        function goToSlide(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(dot => {
+                dot.classList.remove('active', 'opacity-100', 'bg-accent');
+                dot.classList.add('opacity-30');
+            });
+            dots[index].classList.add('active', 'opacity-100', 'bg-accent');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }
+        
+        function startSlideInterval() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                goToSlide(index);
+                startSlideInterval();
+            });
+        });
+        
+        startSlideInterval();
+        
+        // Gallery Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(btn => {
+                    btn.classList.remove('active', 'bg-primary', 'text-white');
+                });
+                btn.classList.add('active', 'bg-primary', 'text-white');
+                
+                const filter = btn.dataset.filter;
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+        
+        // Gallery Lightbox
+        const galleryLightbox = document.getElementById('gallery-lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxClose = document.getElementById('lightbox-close');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').getAttribute('src');
+                const imgAlt = item.querySelector('img').getAttribute('alt');
+                
+                lightboxImage.setAttribute('src', imgSrc);
+                lightboxImage.setAttribute('alt', imgAlt);
+                
+                galleryLightbox.classList.add('flex');
+                galleryLightbox.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            });
+        });
+        
+        lightboxClose.addEventListener('click', closeLightbox);
+        galleryLightbox.addEventListener('click', (e) => {
+            if (e.target === galleryLightbox) {
+                closeLightbox();
+            }
+        });
+        
+        function closeLightbox() {
+            galleryLightbox.classList.add('hidden');
+            galleryLightbox.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // Carousel/Slider for Hero Section
+        let currentCarouselSlide = 0;
+        const carouselTrack = document.querySelector('.carousel-track');
+        const carouselSlides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        function goToCarouselSlide(index) {
+            carouselTrack.style.transform = `translateX(-${index * 100 / carouselSlides.length}%)`;
+            indicators.forEach(ind => ind.classList.remove('active'));
+            indicators[index].classList.add('active');
+            currentCarouselSlide = index;
+        }
+        
+        function nextCarouselSlide() {
+            currentCarouselSlide = (currentCarouselSlide + 1) % carouselSlides.length;
+            goToCarouselSlide(currentCarouselSlide);
+        }
+        
+        let carouselInterval = setInterval(nextCarouselSlide, 5000);
+        
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                clearInterval(carouselInterval);
+                goToCarouselSlide(index);
+                carouselInterval = setInterval(nextCarouselSlide, 5000);
+            });
+        });
+        
+        // Blog Articles Modal
+        const articleModal = document.getElementById('article-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDate = document.getElementById('modal-date');
+        const modalImage = document.getElementById('modal-image').querySelector('img');
+        const modalContent = document.getElementById('modal-content');
+        
+        // Blog article data
+        const blogArticles = [
+            {
+                id: 1,
+                title: "Tendências de Cabelo para 2025",
+                date: "25 de Março, 2025",
+                image: "images/blog1.jpg",
+                content: `
+                    <p>As tendências capilares para 2025 chegaram com propostas que mesclam o retrô e o futurista, trazendo opções para todos os gostos e tipos de cabelo. Confira as principais novidades que estão dominando os salões:</p>
+                    
+                    <h3>1. Cortes Precision Bob</h3>
+                    <p>O bob continua sendo um clássico atemporal, mas para 2025 a precisão é o destaque. Cortes geométricos e bem definidos, com acabamento impecável, são perfeitos para quem busca um visual elegante e de fácil manutenção.</p>
+                    
+                    <h3>2. Franja Cortina 2.0</h3>
+                    <p>A franja cortina evoluiu e surge mais versátil. Agora, ela é adaptável a diferentes comprimentos e texturas, com um caimento mais natural e menos estruturado, emoldurando perfeitamente o rosto.</p>
+                    
+                    <h3>3. Multitom Dimensional</h3>
+                    <p>A coloração multitom substitui as mechas tradicionais, criando efeitos de luz mais naturais e dimensionais. São várias nuances da mesma família de cor, aplicadas estrategicamente para dar movimento e profundidade aos cabelos.</p>
+                    
+                    <h3>4. Copper Golden</h3>
+                    <p>Os tons de cobre dourado estão em alta! Esta coloração quente e vibrante traz luminosidade para todos os tons de pele e funciona bem em várias texturas capilares. Uma atualização elegante do ruivo tradicional.</p>
+                    
+                    <h3>5. Textura Natural Aprimorada</h3>
+                    <p>Abraçar a textura natural continua sendo tendência forte, mas com técnicas de corte específicas que realçam e definem os cachos e ondas naturais, proporcionando mais definição e menos volume onde não é desejado.</p>
+                    
+                    <h3>6. Pixie Moderno</h3>
+                    <p>O corte pixie ganhou novas camadas e texturas, permitindo maior versatilidade nos penteados. Com mais comprimento no topo e laterais desconectadas, permite looks elegantes ou descontraídos.</p>
+                    
+                    <p>Marque sua consulta com nossos especialistas e descubra qual dessas tendências combina mais com seu estilo e personalidade!</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Cuidados com a Pele no Outono",
+                date: "18 de Março, 2025",
+                image: "images/blog2.jpg",
+                content: `
+                    <p>Com a chegada do outono, sua pele precisa de cuidados especiais devido às mudanças de temperatura e diminuição da umidade do ar. Confira como adaptar sua rotina de skincare para manter a pele saudável nessa transição de estação:</p>
+                    
+                    <h3>1. Limpeza Suave</h3>
+                    <p>No outono, troque seu sabonete ou gel de limpeza por opções mais suaves e hidratantes. Produtos com glicerina, ceramidas ou ácido hialurônico são ideais para limpar sem ressecar. Evite água muito quente, que pode danificar a barreira da pele.</p>
+                    
+                    <h3>2. Hidratação Intensificada</h3>
+                    <p>É hora de usar hidratantes mais ricos e nutritivos. Procure fórmulas com manteiga de karité, óleo de argan ou ceramidas. Para peles oleosas, hidratantes em gel-creme oferecem hidratação sem pesar.</p>
+                    
+                    <h3>3. Esfoliação Moderada</h3>
+                    <p>Reduza a frequência de esfoliação para uma ou duas vezes por semana. Prefira esfoliantes químicos suaves (com AHA ou BHA em baixas concentrações) em vez de esfoliantes mecânicos, que podem irritar a pele mais sensível do outono.</p>
+                    
+                    <h3>4. Proteção Solar Contínua</h3>
+                    <p>Mesmo com menos sol, o protetor solar continua sendo essencial. Os raios UVA estão presentes mesmo em dias nublados e penetram pelas janelas, causando envelhecimento prematuro. Mantenha o FPS 30 ou superior diariamente.</p>
+                    
+                    <h3>5. Máscaras Hidratantes Semanais</h3>
+                    <p>Adicione à sua rotina máscaras hidratantes semanais para repor a umidade perdida. Produtos com ingredientes como mel, aloe vera ou ácido hialurônico são excelentes para revitalizar a pele no outono.</p>
+                    
+                    <h3>6. Hidratação Interna</h3>
+                    <p>No outono, tendemos a beber menos água, mas a hidratação interna continua fundamental. Mantenha-se hidratado e considere chás de ervas e alimentos ricos em água como parte da sua rotina.</p>
+                    
+                    <h3>7. Cuidados Específicos com Lábios e Mãos</h3>
+                    <p>Estas áreas sofrem mais com o ressecamento. Use bálsamos labiais nutritivos e cremes para as mãos regularmente, de preferência com ingredientes oclusivos que formem uma barreira protetora.</p>
+                    
+                    <p>Agende uma consulta com nossa esteticista para uma avaliação personalizada da sua pele e descubra os melhores tratamentos para a transição de estação!</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Maquiagem para Pele Madura",
+                date: "10 de Março, 2025",
+                image: "images/blog3.jpg",
+                content: `
+                    <p>A maquiagem para pele madura deve valorizar a beleza natural e proporcionar uma aparência radiante e elegante. Confira as técnicas e produtos mais indicados para realçar a beleza depois dos 50:</p>
+                    
+                    <h3>1. Preparação da Pele</h3>
+                    <p>A base de uma maquiagem impecável começa com a preparação. Use um primer hidratante que preencha linhas finas e melhore a textura da pele. Produtos com ativos iluminadores e efeito blur são ideais para criar uma base perfeita.</p>
+                    
+                    <h3>2. Base Leve e Hidratante</h3>
+                    <p>Opte por bases de média cobertura com acabamento natural ou luminoso. Fórmulas muito matte tendem a evidenciar linhas e texturas. Bases líquidas ou em sérum com propriedades hidratantes e antioxidantes são excelentes opções.</p>
+                    
+                    <h3>3. Corretivo Estratégico</h3>
+                    <p>Use corretivo apenas onde realmente necessário - geralmente no contorno dos olhos e ao redor do nariz. Escolha fórmulas cremosas que não craquelem e aplique com uma técnica de tapinhas, sem esticar a pele.</p>
+                    
+                    <h3>4. Contorno Suave</h3>
+                    <p>Prefira produtos em creme ou líquidos para contorno e blush. Aplique o contorno de forma sutil para criar dimensão sem parecer artificial. Para blush, cores rosadas ou pêssego transmitem um aspecto saudável e jovial.</p>
+                    
+                    <h3>5. Olhos Definidos</h3>
+                    <p>Para os olhos, sombras em tons neutros e acetinados (não cintilantes) valorizam o olhar maduro. Evite sombras muito escuras que podem criar um efeito de olhos fundos. O delineador marrom aplicado bem rente aos cílios cria uma definição elegante.</p>
+                    
+                    <h3>6. Sobrancelhas Preenchidas</h3>
+                    <p>Sobrancelhas bem desenhadas emolduram o rosto e trazem jovialidade. Use produtos em gel ou pó para preencher falhas, mantendo um aspecto natural. Evite o efeito muito marcado ou geométrico.</p>
+                    
+                    <h3>7. Lábios Bem Contornados</h3>
+                    <p>Use um lápis labial para contornar e prevenir que o batom "sangre" para as linhas ao redor da boca. Cores médias como rosé, pêssego ou terracota são universalmente favorecedoras. Acabe com um gloss suave no centro dos lábios para efeito volumizador.</p>
+                    
+                    <h3>8. Fixação Leve</h3>
+                    <p>Finalize com pó translúcido aplicado apenas nas áreas que tendem a ficar oleosas, como zona T. Um spray fixador com propriedades hidratantes ajuda a preservar a maquiagem e mantém o aspecto fresco por mais tempo.</p>
+                    
+                    <p>Agende uma sessão de maquiagem personalizada com nossas maquiadoras para aprender técnicas específicas para valorizar sua beleza natural!</p>
+                `
+            }
+        ];
+        
+        // Open modal with blog content
+        document.querySelectorAll('.read-blog-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const articleId = parseInt(btn.dataset.id);
+                const article = blogArticles.find(a => a.id === articleId);
+                
+                if (article) {
+                    modalTitle.textContent = article.title;
+                    modalDate.textContent = article.date;
+                    modalImage.setAttribute('src', article.image);
+                    modalImage.setAttribute('alt', article.title);
+                    modalContent.innerHTML = article.content;
+                    
+                    articleModal.classList.add('active');
+                    document.body.classList.add('overflow-hidden');
+                }
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', closeArticleModal);
+        articleModal.addEventListener('click', (e) => {
+            if (e.target === articleModal) {
+                closeArticleModal();
+            }
+        });
+        
+        function closeArticleModal() {
+            articleModal.classList.remove('active');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // WhatsApp contact form integration - Mensagem personalizada
+        document.getElementById('send-message').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            let whatsappMessage = `Olá! Meu nome é ${name}. `;
+            if (email) whatsappMessage += `Meu email é ${email}. `;
+            if (phone) whatsappMessage += `Meu telefone é ${phone}. `;
+            whatsappMessage += message;
+            
+            window.open(`https://wa.me/5575991342279?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+        });
+
+        // Implementação de Lazy Loading para imagens
+        document.addEventListener('DOMContentLoaded', function() {
+            let lazyImages = [].slice.call(document.querySelectorAll('img.lazy-load'));
+            
+            if ('IntersectionObserver' in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.classList.add('loaded');
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            } else {
+                // Fallback para navegadores que não suportam IntersectionObserver
+                let active = false;
+                
+                const lazyLoad = function() {
+                    if (active === false) {
+                        active = true;
+                        
+                        setTimeout(function() {
+                            lazyImages.forEach(function(lazyImage) {
+                                if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== 'none') {
+                                    lazyImage.classList.add('loaded');
+                                    
+                                    lazyImages = lazyImages.filter(function(image) {
+                                        return image !== lazyImage;
+                                    });
+                                    
+                                    if (lazyImages.length === 0) {
+                                        document.removeEventListener('scroll', lazyLoad);
+                                        window.removeEventListener('resize', lazyLoad);
+                                        window.removeEventListener('orientationchange', lazyLoad);
+                                    }
+                                }
+                            });
+                            
+                            active = false;
+                        }, 200);
+                    }
+                };
+                
+                document.addEventListener('scroll', lazyLoad);
+                window.addEventListener('resize', lazyLoad);
+                window.addEventListener('orientationchange', lazyLoad);
+                lazyLoad();
+            }
+        });
+
+        // Adicionando mensagens personalizadas aos links de serviço
+        document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
+            // Os links já estão configurados corretamente no HTML para direcionar ao WhatsApp com mensagens específicas
+            link.addEventListener('click', function(e) {
+                // Adicionar analytics ou outras funcionalidades aqui se necessário
+                console.log('Link para serviço: ' + this.getAttribute('href'));
+            });
+        });
+    </script>
+</body>
+</html>
